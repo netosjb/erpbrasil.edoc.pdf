@@ -365,11 +365,8 @@ def cnpj_emitente_formatado(NFe):
 
 def fatura_a_prazo(NFe):
     # não funciona com multiplos detpag
-    if (str(NFe.infNFe.pag.detPag.indPag) == '1' or
-        len(NFe.infNFe.cobr.dup) > 1
-        or (len(NFe.infNFe.cobr.dup) == 1)
-        and (datetime.strptime(NFe.infNFe.cobr.dup[0].dVenc), '%d/%m/%Y').toordinal()
-        > (datetime.strptime(NFe.infNFe.ide.dEmi, '%d/%m/%Y').toordinal())): 
+    if (str(NFe.infNFe.pag.detPag.indPag) == '1' or len(NFe.infNFe.cobr.dup) > 1
+            or (len(NFe.infNFe.cobr.dup) == 1 and datetime.strptime(NFe.infNFe.cobr.dup[0].dVenc, '%d/%m/%Y').toordinal() > datetime.strptime(NFe.infNFe.ide.dEmi, '%d/%m/%Y').toordinal())):
         return True
     return False
 
